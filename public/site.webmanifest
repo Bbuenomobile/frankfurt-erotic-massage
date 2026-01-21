@@ -1,0 +1,16 @@
+{
+    "name": "Frankfurt Erotic massage",
+    "short_name": "Frankfurt Erotic Massage \ud83c\udfe6",
+    "description": "Discover the best erotic massage in Frankfurt. Explore 0 verified venues in this sensual city. Book your indulgent session amid Frankfurt's skyline today!",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#e91e63",
+    "icons": [
+        {
+            "src": "/favicon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml"
+        }
+    ]
+}

@@ -1,0 +1,355 @@
+---
+import Base from '../layouts/Base.astro';
+import ListingCard from '../components/ListingCard.astro';
+import InternalLinks from '../components/InternalLinks.astro';
+import OwnerCTA from '../components/OwnerCTA.astro';
+import CategoryNav from '../components/CategoryNav.astro';
+import NetworkLinks from '../components/NetworkLinks.astro';
+
+// Safe fetch helper for build-time API calls
+async function safeFetchJson(url: string): Promise<any[]> {
+    try {
+        console.log('Fetching:', url);
+        const res = await fetch(url, {
+            headers: { 
+                'Accept': 'application/json',
+                'User-Agent': 'ErotikMaps-Satellite-Builder/1.0',
+                'X-Satellite-Build': 'true'
+            }
+        });
+        
+        if (!res.ok) {
+            console.error('API returned ' + res.status + ': ' + res.statusText);
+            return [];
+        }
+        
+        const ct = res.headers.get('content-type') || '';
+        if (!ct.includes('application/json')) {
+            console.error('Expected JSON but got: ' + ct);
+            return [];
+        }
+        
+        const data = await res.json();
+        return data.data || [];
+    } catch (error) {
+        console.error('Fetch failed:', error);
+        return [];
+    }
+}
+
+// Fetch listings from API at build time
+const apiUrl = 'https://www.erotikmaps.com/api/v1/satellite/listings?city=frankfurt&category=erotic-massage&limit=100';
+const listings = await safeFetchJson(apiUrl);
+
+const faq = [{"question":"What is the best Erotic massage in Frankfurt?","answer":"<p>Frankfurt's top <strong>erotic massage<\/strong> spots shine in Bahnhofsviertel and Westend, offering discreet luxury with skilled therapists blending tantric techniques and local spa precision. While our directory lists 0 verified venues yet, seek parlors near Hauptbahnhof praised for body-to-body sessions amid the city's efficient vibe. Look for multilingual staff and private rooms with Main River views. Prioritize hygiene-focused spots reflecting German standards—read recent reviews on local forums for the current favorites that deliver sensual escapes after long trade fair days.<\/p>"},{"question":"How much does Erotic massage cost in Frankfurt?","answer":"<p><strong>Erotic massage in Frankfurt<\/strong> typically costs €50-€100 for a 30-minute session, €100-€200 for 60-90 minutes, and €250+ for extended tantric or specialized treatments. Prices are in euros, cash-only common; extras like full service add €50-€100. Frankfurt's value-driven market keeps rates competitive compared to Berlin, with no hidden fees in legit spots. Always confirm the menu upfront—sessions in upscale Westend venues trend higher, while Bahnhofsviertel offers budget-friendly options without skimping on quality.<\/p>"},{"question":"Is Erotic massage legal in Germany?","answer":"<p>Yes, <strong>erotic massage in Frankfurt<\/strong> is fully legal under Germany's 2002 Prostitution Act, which regulates sex work as a profession with health checks and taxes. Venues operate openly but discreetly, especially in tolerant Frankfurt. Visitors should know: consent is paramount, services are contractual, and brothels require registration. Stick to licensed spots to avoid fines; police focus on trafficking, not consensual adults. English signage aids tourists, but carry ID—Frankfurt's straightforward culture ensures safe, professional encounters.<\/p>"},{"question":"What are the best areas for Erotic massage in Frankfurt?","answer":"<p>The prime districts for <strong>erotic massage Frankfurt<\/strong> include Bahnhofsviertel near Hauptbahnhof, alive with neon-lit parlors perfect for travelers; Sachsenhausen across the Main River, blending cider-house charm with sensual hideaways; and upscale Westend with villa-based studios. Altstadt edges offer central access post-Römer sightseeing. These areas balance convenience, discretion, and variety—avoid isolated spots at night, using U-Bahn for safe navigation in Frankfurt's reliable public transport system.<\/p>"},{"question":"What should I know before visiting a Erotic massage venue in Frankfurt?","answer":"<p>Before an <strong>erotic massage in Frankfurt<\/strong>, shower upon arrival (provided), bring cash euros, and discuss boundaries clearly—Germans value directness. Book via phone or site, arriving punctual amid the city's clockwork efficiency. Respect no-touch zones unless offered, tip 10-20% for great service, and note English is common but basic German phrases help. Check reviews for legitimacy; in cooler Frankfurt weather, dress warmly pre\/post-session. Hydrate after, and enjoy local Apfelwein nearby for the full Hessian experience.<\/p>"}];
+const canonicalUrl = 'https://eroticmassagefrankfurt.com/';
+
+// HTML content from AI (stored as variables for set:html)
+const introHtml = `<p>Frankfurt, the pulsating financial heart of Germany, blends towering skyscrapers with historic charm along the Main River, creating a unique backdrop for <strong>erotic massage in Frankfurt</strong>. Known for its international vibe—home to the European Central Bank and endless business travelers—this city offers discreet indulgence amid its efficient, no-nonsense culture. Visitors from around the globe flock here not just for deals at the Frankfurter Buchmesse, but for the sophisticated wellness scenes that cater to deeper desires.</p><p>What sets <strong>erotic massage Frankfurt</strong> apart is the local touch: therapists often incorporate elements inspired by the city's spa heritage, drawing from traditional Hessian wellness rituals infused with sensual artistry. Expect venues in districts like the Bahnhofsviertel, buzzing with after-hours energy near the Hauptbahnhof, or the calmer Westend with its elegant villas. These spots provide private escapes where skilled hands melt away the stress of jet lag or boardroom battles.</p><p>Frankfurt's reputation for adult services traces back to its liberal post-war boom, evolving into a regulated scene that's both professional and tantalizing. Neighborhoods such as Sachsenhausen, across the river with its apple wine taverns, host hidden gems blending Erotic massage with the area's earthy, convivial spirit. Here, sessions promise more than relaxation—they ignite the senses in a city famous for its frank, direct approach to pleasure.</p><p>Whether you're a first-time explorer or a returning aficionado, <strong>erotic massage in Frankfurt</strong> delivers tailored experiences amid the city's crisp autumn winds or mild summer evenings. From feather-light teases to intense full-body releases, these services honor German precision while embracing erotic freedom.</p><p>With 0 verified listings on our directory, Frankfurt's scene invites discovery. Dive into this Mainhattan treasure where business meets bliss.</p>
+
+<h2>About Frankfurt</h2>
+<p>Frankfurt am Main captivates with its skyline of gleaming towers like the Commerzbank Tower, earning its 'Mainhattan' nickname, alongside the medieval Römer city hall. As a major Euro hub, it draws traders and tourists year-round, with the Main River offering scenic cruises and the Palmengarten botanical oasis for serene escapes. The city's culture shines through events like the Museumsuferfest, lining the riverbanks with art and music.</p><p>Nightlife pulses in the Altstadt's cozy bars serving handkäs mit musik—marinated cheese appetizers—or Sachsenhausen's lively cider houses. Frankfurt's efficient U-Bahn and S-Bahn make exploring effortless, even in drizzly weather typical of its temperate climate. English is widely spoken, easing visits for internationals seeking culture by day and <strong>erotic massage Frankfurt</strong> by night.</p><p>This blend of high finance, historic roots, and accessible pleasures makes Frankfurt an ideal spot for indulgent getaways.</p>
+
+<h2>What to Expect</h2>
+<p>In <strong>erotic massage Frankfurt</strong> venues, anticipate a professional welcome in clean, dimly lit rooms scented with lavender or sandalwood, reflecting German hygiene standards. Sessions typically last 30-90 minutes, starting with a soothing shower, progressing to nude body-to-body glides and intimate touches. Therapists, often multilingual, ensure consent and comfort throughout.</p><p>Prices range from €50-€150 for standard erotic sessions, up to €300+ for tantric or couples options—cash preferred, with extras clearly discussed upfront. Etiquette demands politeness: arrive clean, respect boundaries, and tip 10-20% for exceptional service. Frankfurt's direct culture means clear communication; no haggling expected.</p><p>Post-massage, enjoy provided refreshments like Apfelwein, embodying local hospitality. Always verify venue legitimacy via reviews to align with Germany's regulated adult industry.</p>`;
+const bottomHtml = `<p>Frankfurt's <strong>erotic massage</strong> scene promises an unforgettable fusion of relaxation and arousal in a city where efficiency meets ecstasy. From the neon glow of Bahnhofsviertel to the riverside calm of Sachsenhausen, these experiences cater to discerning tastes amid Germany's liberal ethos.</p><p>Currently featuring <strong>0 verified listings</strong>, our directory is your gateway to authentic <strong>erotic massage in Frankfurt</strong>. As we expand, stay tuned for vetted venues that uphold the highest standards of discretion and pleasure.</p><p>Ready to surrender to sensation? Explore Frankfurt's sensual undercurrents today—book your session and let the Main River witness your bliss. Contact us to suggest a venue and help build this essential guide.</p>`;
+
+// Split listings for different sections
+const premiumListings = listings.filter((l: any) => l.is_premium);
+const goldListings = listings.filter((l: any) => l.is_gold);
+const regularListings = listings.filter((l: any) => !l.is_premium);
+
+// Get top 5 listings for hero slider (Gold first, then Premium)
+const heroListings = [...goldListings, ...premiumListings.filter((l: any) => !l.is_gold), ...regularListings]
+    .filter((l: any) => l.thumbnail)
+    .slice(0, 5);
+---
+
+<Base 
+    title="Erotic Massage Frankfurt: Top Venues &amp; Guide"
+    description="Discover the best erotic massage in Frankfurt. Explore 0 verified venues in this sensual city. Book your indulgent session amid Frankfurt&#039;s skyline today!"
+    canonical={canonicalUrl}
+    image={heroListings.length > 0 ? heroListings[0].thumbnail : 'https://erotikmaps.com/images/og-default.jpg'}
+>
+    <!-- Compact Hero Section -->
+    <section class="hero-compact">
+        <div class="container">
+            <h1>Unveil Sensual Bliss: Erotic Massage in Frankfurt&#039;s Riverside Allure</h1>
+            <p class="hero-subtitle">{listings.length} verified venues in Frankfurt</p>
+            <div class="hero-badges">
+                {goldListings.length > 0 && <span class="badge-stat gold">⭐ {goldListings.length} Gold</span>}
+                {premiumListings.length > 0 && <span class="badge-stat premium">✨ {premiumListings.length} Premium</span>}
+            </div>
+        </div>
+    </section>
+    
+    <!-- Listings Grid - Mobile First -->
+    <section class="listings" id="all-listings">
+        <div class="container">
+            <div class="listings-grid-3">
+                {listings.map((listing: any) => (
+                    <ListingCard listing={listing} />
+                ))}
+            </div>
+            
+            {listings.length === 0 && (
+                <p class="no-listings">No listings found. Check back soon!</p>
+            )}
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <h2>About Erotic massage in Frankfurt</h2>
+            <div class="about-content" set:html={introHtml} />
+        </div>
+    </section>
+    
+    <!-- Category Navigation -->
+    <CategoryNav city="Frankfurt" />
+    
+    <!-- Network Links - Links to other satellite sites -->
+    <NetworkLinks currentCity="Frankfurt" currentCountry="Germany" category="erotic-massage" />
+    
+    <!-- Internal Links Section -->
+    <InternalLinks city="Frankfurt" country="Germany" category="Erotic massage" />
+    
+    <!-- Owner CTA Section - Encourage venue owners to create listings -->
+    <OwnerCTA city="Frankfurt" country="Germany" category="Erotic massage" />
+    
+    <!-- FAQ Section -->
+    {faq && faq.length > 0 && (
+        <section class="faq" id="faq">
+            <div class="container">
+                <h2>Frequently Asked Questions about Erotic massage in Frankfurt</h2>
+                <div class="faq-list">
+                    {faq.map((item: any, index: number) => (
+                        <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                            <h3 itemprop="name">{item.question}</h3>
+                            <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                                <div itemprop="text" set:html={item.answer} />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    )}
+    
+    <!-- Bottom Section / Call to Action -->
+    <section class="bottom-content">
+        <div class="container">
+            <h2>Find Your Perfect Erotic massage Experience in Frankfurt</h2>
+            <div class="bottom-content-text" set:html={bottomHtml} />
+            
+            <div class="cta-box">
+                <h3>Looking for something specific?</h3>
+                <p>Browse through our {listings.length} listings above, or click on any venue to see full details, photos, and contact information.</p>
+                <a href="#all-listings" class="btn-primary">Browse All Listings</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Individual Listing Links for SEO -->
+    <section class="sitemap-links">
+        <div class="container">
+            <h2>All Erotic massage Venues</h2>
+            <ul class="venue-links">
+                {listings.map((listing: any) => (
+                    <li><a href={`/${listing.slug}`}>{listing.name} - Frankfurt</a></li>
+                ))}
+            </ul>
+        </div>
+    </section>
+    
+    <!-- Schema.org - ItemList -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Erotic Massage Frankfurt: Top Venues &amp; Guide",
+        "description": "Discover the best erotic massage in Frankfurt. Explore 0 verified venues in this sensual city. Book your indulgent session amid Frankfurt&#039;s skyline today!",
+        "url": canonicalUrl,
+        "numberOfItems": listings.length,
+        "itemListElement": listings.map((listing: any, index: number) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "item": {
+                "@type": "LocalBusiness",
+                "name": listing.name,
+                "url": `https://eroticmassagefrankfurt.com/${listing.slug}`,
+                "image": listing.thumbnail,
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "Frankfurt",
+                    "addressCountry": "Germany"
+                }
+            }
+        }))
+    })}></script>
+    
+    <!-- Schema.org - FAQPage -->
+    {faq && faq.length > 0 && (
+        <script type="application/ld+json" set:html={JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": faq.map((item: any) => ({
+                "@type": "Question",
+                "name": item.question,
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": item.answer
+                }
+            }))
+        })}></script>
+    )}
+    
+    <!-- Schema.org - WebPage -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Erotic Massage Frankfurt: Top Venues &amp; Guide",
+        "description": "Discover the best erotic massage in Frankfurt. Explore 0 verified venues in this sensual city. Book your indulgent session amid Frankfurt&#039;s skyline today!",
+        "url": canonicalUrl,
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "Frankfurt Erotic Massage 🏦",
+            "url": "https://eroticmassagefrankfurt.com"
+        },
+        "about": {
+            "@type": "Thing",
+            "name": "Erotic massage in Frankfurt"
+        },
+        "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Home",
+                    "item": "https://eroticmassagefrankfurt.com"
+                }
+            ]
+        }
+    })}></script>
+</Base>
+
+<style>
+    /* Compact Hero */
+    .hero-compact {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        padding: 30px 0;
+        text-align: center;
+    }
+    .hero-compact h1 {
+        font-size: clamp(1.4rem, 4vw, 2rem);
+        margin-bottom: 8px;
+        font-weight: 700;
+    }
+    .hero-compact .hero-subtitle {
+        font-size: 0.95rem;
+        opacity: 0.9;
+        margin-bottom: 12px;
+    }
+    .hero-badges {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .badge-stat {
+        background: rgba(255,255,255,0.2);
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+    .badge-stat.gold { background: rgba(255,215,0,0.3); }
+    .badge-stat.premium { background: rgba(255,255,255,0.25); }
+    
+    /* Listings Grid - Mobile First (1 col mobile, 2 tablet, 3 desktop) */
+    .listings-grid-3 {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    @media (min-width: 540px) {
+        .listings-grid-3 { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 900px) {
+        .listings-grid-3 { grid-template-columns: repeat(3, 1fr); }
+    }
+    
+    /* About Section */
+    .about-section {
+        background: var(--card-bg);
+        padding: 40px 0;
+    }
+    .about-section h2 {
+        font-size: 1.4rem;
+        margin-bottom: 16px;
+    }
+    .about-content {
+        color: var(--text-light);
+        line-height: 1.7;
+    }
+    .about-content p { margin-bottom: 12px; }
+    
+    /* Listings Section */
+    .listings {
+        padding: 24px 0;
+    }
+    
+    .section-intro {
+        color: var(--text-light);
+        margin-bottom: 25px;
+    }
+    .premium-section {
+        background: linear-gradient(135deg, #D4AF3710, #F4D03F10);
+    }
+    .cta-box {
+        background: linear-gradient(135deg, var(--primary)10, var(--secondary)10);
+        padding: 30px;
+        border-radius: 12px;
+        margin-top: 30px;
+        text-align: center;
+    }
+    .cta-box h3 {
+        margin-bottom: 10px;
+    }
+    .cta-box p {
+        margin-bottom: 20px;
+        color: var(--text-light);
+    }
+    .sitemap-links {
+        padding: 40px 0;
+        background: var(--bg);
+    }
+    .sitemap-links h2 {
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+    }
+    .venue-links {
+        column-count: 3;
+        column-gap: 30px;
+        list-style: none;
+        padding: 0;
+    }
+    .venue-links li {
+        margin-bottom: 8px;
+        break-inside: avoid;
+    }
+    .venue-links a {
+        font-size: 13px;
+        color: var(--text-light);
+    }
+    .venue-links a:hover {
+        color: var(--primary);
+    }
+    @media (max-width: 768px) {
+        .venue-links {
+            column-count: 1;
+        }
+    }
+</style>
